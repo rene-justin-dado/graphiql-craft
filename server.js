@@ -18,5 +18,5 @@ app.use('/', graphqlHTTP({
   graphiql: true
 }))
 
-app.listen(4000);
-console.log('GraphiQL on port: 4000');
+app.listen(1337);
+console.log('GraphiQL on port: 1337');
