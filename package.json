@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "nodemon": "nodemon --exec npm run babel-node server.js",
+    "nodemon": "nodemon --debug --exec npm run babel-node server.js",
     "babel-node": "babel-node --presets=es2015 --ignore=node_modules",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
