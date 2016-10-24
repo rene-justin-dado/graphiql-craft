@@ -15,7 +15,7 @@ const schema = buildSchema(`
 
 app.use('/', graphqlHTTP({
   schema: MySchema,
-  graphiql: true
+  graphiql: process.env.NODE_ENV || 'development'
 }))
 
 app.listen(1337);
