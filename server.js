@@ -17,4 +17,4 @@ app.use('/graphiql', graphqlHTTP({
 }))
 
 app.listen(1337);
-console.log('GraphiQL on port: 1337');
+console.log('GraphiQL interface on: 1337/graphiql');
