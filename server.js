@@ -15,8 +15,8 @@ const schema = buildSchema(`
 
 app.use('/', graphqlHTTP({
   schema: MySchema,
-  graphiql: true
+  graphiql: process.env.NODE_ENV || 'development'
 }))
 
-app.listen(4000);
-console.log('GraphiQL on port: 4000');
+app.listen(1337);
+console.log('GraphiQL on port: 1337');
