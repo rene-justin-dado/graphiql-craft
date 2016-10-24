@@ -4,14 +4,9 @@ import graphql from 'graphql'
 import graphqlHTTP from 'express-graphql'
 import {buildSchema} from 'graphql'
 
-import MySchema from './lib/schema.js'
+import MySchema from './src/schema.js'
 
 const app = express();
-const schema = buildSchema(`
-  type Query {
-    hello: String
-  }
-`)
 
 app.use('/', graphqlHTTP({
   schema: MySchema,
