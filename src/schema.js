@@ -1,5 +1,5 @@
 import * as _ from 'underscore'
-
+import mongo from 'promised-mongo'
 import HeroesList from './data/heroes'
 
 import {
@@ -14,6 +14,9 @@ import {
 
   GraphQLSchema
 } from 'graphql'
+
+const db = mongo('mongodb://localhost/koprulu')
+const heroesCollection = db.collection('heroes')
 
 const Hero = new GraphQLObjectType({
   name: 'Hero',
@@ -52,7 +55,7 @@ const Query = new GraphQLObjectType({
       args: {
         heroId: {type: GraphQLString}
       },
-      resolve: (source, {heroId = 'stukov'}) => {
+      resolve: (source, args) => {
         return HeroesList.find((elem, i) => {
           return heroId === elem._id
         })
@@ -60,7 +63,7 @@ const Query = new GraphQLObjectType({
     },
     heroes: {
       type: new GraphQLList(Hero),
-      resolve: () => HeroesList
+      resolve: () => heroesCollection.find().toArray()
     }
   })
 })
