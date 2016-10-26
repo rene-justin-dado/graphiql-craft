@@ -55,7 +55,7 @@ const Query = new GraphQLObjectType({
       args: {
         heroId: {type: GraphQLString}
       },
-      resolve: (source, args) => {
+      resolve: (source, {heroId = 'stukov'}) => {
         return HeroesList.find((elem, i) => {
           return heroId === elem._id
         })
@@ -79,8 +79,8 @@ const Mutation = new GraphQLObjectType({
         name: {type: new GraphQLNonNull(GraphQLString)},
         affiliation: {type: GraphQLString}
       },
-      resolve: function (source, args) {
-        let hero = args
+      resolve: (source, args) => {
+        let hero = Object.assign({}, args)
         const alreadyExists = _.findIndex(HeroesList, h => {
           return h._id === hero._id || h.name === hero.name
         }) >= 0
