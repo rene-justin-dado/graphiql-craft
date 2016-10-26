@@ -53,17 +53,18 @@ const Query = new GraphQLObjectType({
       type: Hero,
       description: 'Returns the hero corresponding to the _id',
       args: {
-        heroId: {type: GraphQLString}
+        _id: {type: GraphQLString}
       },
-      resolve: (source, {heroId = 'stukov'}) => {
-        return HeroesList.find((elem, i) => {
-          return heroId === elem._id
-        })
+      resolve: (source, {args}) => {
+        return heroesCollection.find((elem, i) => heroId === elem._id)
       }
     },
     heroes: {
       type: new GraphQLList(Hero),
-      resolve: () => heroesCollection.find().toArray()
+      resolve: () => {
+        console.log(heroesCollection.find().toArray())
+        return heroesCollection.find().toArray()
+      }
     }
   })
 })
@@ -81,15 +82,8 @@ const Mutation = new GraphQLObjectType({
       },
       resolve: (source, args) => {
         let hero = Object.assign({}, args)
-        const alreadyExists = _.findIndex(HeroesList, h => {
-          return h._id === hero._id || h.name === hero.name
-        }) >= 0
-        if (alreadyExists) {
-          throw new Error(`Hero already exists: ${hero._id}`)
-        } else {
-          HeroesList.push(hero)
-          return hero
-        }
+        heroesCollection.insert(hero)
+          .then(_ => hero)
       }
     }
   }
