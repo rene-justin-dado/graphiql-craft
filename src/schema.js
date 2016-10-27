@@ -55,14 +55,11 @@ const Query = new GraphQLObjectType({
       args: {
         _id: {type: GraphQLString}
       },
-      resolve: (source, {args}) => {
-        return heroesCollection.find((elem, i) => heroId === elem._id)
-      }
+      resolve: (source, {args}) => heroesCollection.find(args)
     },
     heroes: {
       type: new GraphQLList(Hero),
       resolve: () => {
-        console.log(heroesCollection.find().toArray())
         return heroesCollection.find().toArray()
       }
     }
